@@ -5,6 +5,7 @@ config({ silent: true });
 import cors from "cors";
 import express, { NextFunction, Request, Response } from "express";
 import morgan from "morgan";
+import { routes } from "./routes";
 
 const app = express();
 
@@ -30,7 +31,7 @@ app.use(
   })
 );
 
-// app.use("/odin/v1", routes);
+app.use("/surtur/v1", routes);
 // app.use(errors());
 
 export { app };
