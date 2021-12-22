@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "es5",                                     
+    "module": "commonjs",                                
+    "esModuleInterop": true,                             
+    "forceConsistentCasingInFileNames": true,            
+    "strict": false,                                      
+    "skipLibCheck": true,
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "paths": {
+      "@modules/*":["./src/modules/*"],
+      "@shared/*":["./src/shared/*"],
+      "@core/*":["./src/core/*"],
+      "@config/*":["./src/config"]
+    }
+  }
+}
