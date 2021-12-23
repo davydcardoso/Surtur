@@ -12,7 +12,7 @@
       "@modules/*":["./src/modules/*"],
       "@infra/*":["src/infra/*"],
       "@core/*":["./src/core/*"],
-      "@config/*":["./src/config"]
+      "@config/*":["./src/config/*"]
     }
   }
 }

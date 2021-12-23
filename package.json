@@ -8,7 +8,8 @@
   "license": "MIT",
   "scripts": {
     "dev:http": "ts-node-dev -r tsconfig-paths/register src/infra/http/server.ts",
-    "dev:worker": "ts-node-dev -r tsconfig-paths/register src/infra/queue/worker.ts"
+    "dev:worker": "ts-node-dev -r tsconfig-paths/register src/infra/queue/worker.ts",
+    "seed":"ts-node-dev -r tsconfig-paths/register src/infra/prisma/seed.ts"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
