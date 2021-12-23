@@ -10,7 +10,7 @@
     "baseUrl": ".",
     "paths": {
       "@modules/*":["./src/modules/*"],
-      "@shared/*":["src/infra/*"],
+      "@infra/*":["src/infra/*"],
       "@core/*":["./src/core/*"],
       "@config/*":["./src/config"]
     }
