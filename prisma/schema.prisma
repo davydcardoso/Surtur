@@ -126,4 +126,6 @@ model Charges {
   updated_at   DateTime @updatedAt @db.Timestamp
 
   debtor Debtors @relation(fields: [debtor_id], references: [id])
+  
+  @@map("charges")
 }
