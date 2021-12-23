@@ -7,7 +7,8 @@
   "author": "davydcardoso <dcsistemas3@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev:http": "ts-node-dev -r tsconfig-paths/register src/shared/http/server.ts"
+    "dev:http": "ts-node-dev -r tsconfig-paths/register src/infra/http/server.ts",
+    "dev:worker":"ts-node-dev -r tsconfig-paths/register src/infra/queue/worker.ts"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
@@ -16,10 +17,12 @@
     "@types/jsonwebtoken": "^8.5.6",
     "@types/morgan": "^1.9.3",
     "@types/uuid": "^8.3.3",
+    "prisma": "3.4.2",
     "tsconfig-paths": "^3.12.0",
     "typescript": "^4.5.4"
   },
   "dependencies": {
+    "@prisma/client": "3.4.2",
     "cores": "^0.8.5",
     "cors": "^2.8.5",
     "dotenv-flow": "^3.2.0",

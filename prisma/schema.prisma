@@ -9,3 +9,121 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Users {
+  id         String    @id @default(uuid())
+  name       String    @db.VarChar(100)
+  email      String    @db.VarChar(200)
+  password   String
+  created_at DateTime  @default(now()) @db.Date
+  updated_at DateTime? @updatedAt @db.Timestamp
+
+  @@map("users")
+}
+
+model Debtors {
+  id          String    @id @default(uuid())
+  name        String    @db.VarChar(100)
+  actived     Boolean   @default(true)
+  email       String    @db.VarChar(200)
+  contact     String    @db.VarChar(20)
+  external_id String
+  plan_id     String
+  created_at  DateTime  @default(now()) @db.Date
+  updated_at  DateTime? @updatedAt @db.Timestamp
+
+  plans Plans @relation(fields: [plan_id], references: [id])
+
+  Charges Charges[]
+  @@map("debtors")
+}
+
+model Parameters {
+  id         String    @id
+  name       String    @db.VarChar(180)
+  value      String    @db.VarChar(200)
+  created_at DateTime  @default(now()) @db.Date
+  updated_at DateTime? @updatedAt @db.Timestamp
+
+  @@map("parameters")
+}
+
+enum StatusType {
+  SENDING
+  ERROR
+  SENDED
+  CANCEL
+  REMOVED
+}
+
+model MessageLayout {
+  id         String    @id @default(uuid())
+  name       String    @db.VarChar(100)
+  subject    String    @db.VarChar(255)
+  body       String
+  created_at DateTime  @default(now()) @db.Date
+  updated_at DateTime? @default(now()) @db.Timestamp
+
+  @@map("message_layout")
+}
+
+model Plans {
+  id                     String    @id @default(uuid())
+  name                   String    @db.VarChar(100)
+  vps_name               String    @db.VarChar(100)
+  vps_value              Float     @db.Real
+  billing_value          Float     @db.Real
+  expiration_date        DateTime  @db.Date
+  biling_intermediary_id String
+  created_at             DateTime  @default(now()) @db.Date
+  updated_at             DateTime? @updatedAt @db.Timestamp
+
+  Debtors Debtors[]
+
+  billing_intermediary BillingIntermediary @relation(fields: [biling_intermediary_id], references: [id])
+
+  @@map("plans")
+}
+
+model BillingIntermediary {
+  id         String    @id @default(uuid())
+  name       String    @db.VarChar(180)
+  plan_id    String
+  costs_id   String
+  created_at DateTime  @default(now()) @db.Date
+  updated_at DateTime? @updatedAt @db.Timestamp
+
+  Plans Plans[]
+
+  costs Costs @relation(fields: [costs_id], references: [id])
+
+  @@map("billing_intermediary")
+}
+
+model Costs {
+  id                      String @id @default(uuid())
+  name                    String
+  ticket                  Float  @db.Real
+  pix                     Float  @db.Real
+  billing_intermediary_id String
+  credit_card             Float  @db.Real
+  debit_card              Float  @db.Real
+
+
+  BillingIntermediary BillingIntermediary[]
+
+  @@map("costs")
+}
+
+model Charges {
+  id           String   @id @default(uuid())
+  debtor_id    String
+  status       String
+  generated_in DateTime @db.Date
+  expires_in   DateTime @db.Date
+  value        Float    @db.Real
+  created_at   DateTime @default(now()) @db.Date
+  updated_at   DateTime @updatedAt @db.Timestamp
+
+  debtor Debtors @relation(fields: [debtor_id], references: [id])
+}
